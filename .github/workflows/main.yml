@@ -27,6 +27,9 @@ jobs:
         with:
           packages: platform-tools
 
+      - name: Accept Android SDK licenses
+        run: yes | sdkmanager --licenses || true
+
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
@@ -37,7 +40,34 @@ jobs:
           unzip -q F1NextRaceWidgetPro-Android-Source.zip -d project
           test -f project/F1NextRaceWidgetPro/app/build.gradle.kts
 
-      - name: Set Java compatibility to 17
+      - name: Fix widget layout
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          p = Path(
+              "project/F1NextRaceWidgetPro/app/src/main/res/layout/widget_next_race.xml"
+          )
+          s = p.read_text()
+
+          pattern = r'<View\s+android:layout_width="4dp"\s+android:layout_height="22dp"\s+android:background="@drawable/accent_bar"\s*/>'
+
+          replacement = '''<TextView
+                  android:layout_width="4dp"
+                  android:layout_height="22dp"
+                  android:background="@drawable/accent_bar"
+                  android:text="" />'''
+
+          fixed, count = re.subn(pattern, replacement, s, count=1)
+          if count != 1:
+              raise SystemExit("Could not find the decorative View to patch.")
+
+          p.write_text(fixed)
+          print("Widget layout patch applied.")
+          PY
+
+      - name: Set Java compatibility
         run: |
           python3 - <<'PY'
           from pathlib import Path
@@ -66,7 +96,7 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: F1-Next-Race-APK
+          name: F1-Next-Race-APK-Fixed
           path: project/F1NextRaceWidgetPro/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           
