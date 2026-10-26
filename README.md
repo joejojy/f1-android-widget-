@@ -4,7 +4,7 @@ A native Android home-screen widget for the Formula 1 weekend: upcoming session 
 
 **The official F1 app is not required.** The widget runs independently and opens the F1 calendar in a browser when you tap its calendar link.
 
-This README describes **v2.6** on the `codex/widget-clock-footer` branch, proposed in [pull request #1](https://github.com/joejojy/f1-android-widget-/pull/1).
+This README describes **v2.7** on the `codex/widget-clock-footer` branch, proposed in [pull request #1](https://github.com/joejojy/f1-android-widget-/pull/1).
 
 ## Features
 
@@ -17,18 +17,19 @@ This README describes **v2.6** on the `codex/widget-clock-footer` branch, propos
 - Caches the calendar for offline session selection, countdowns, and circuit display.
 - Uses a resizable dark layout with a dedicated calendar footer.
 
-## Swipe to previous results (v2.6)
+## Swipe to previous results (v2.7)
 
-Swipe down on the widget card to browse results, and swipe up to return toward Home. **HOME** always returns directly to the current/next session. **RESULTS** opens the latest history card; **OLDER** and **NEWER** browse earlier/later cards. Navigation remains available without swiping.
+Swipe down on the widget card to browse results, and swipe up to return toward the current/next session. Navigation uses swipes, with no bottom button bar.
 
-- Race and sprint cards show the top five and finishing gaps; compact widgets show the top three.
+- Race and sprint cards show the top five and finishing gaps; short widgets show the top three.
+- Results text and spacing adapt to the available width and height. Resize the widget using your launcher’s handles; the launcher controls the available grid sizes.
 - Practice and qualifying cards show published classification and best lap times. Qualifying times retain their Q1/Q2/Q3 labels.
 - Tap a published card for the complete classification and lap counts inside the app.
 - Tap an unloaded card to prioritise downloading that session. No live-timing opt-in is needed for history.
 - Up to 14 recent sessions are cached, with bounded background downloads. Unpublished or unavailable data is shown as pending; saved classifications remain available offline and are rechecked for corrections.
-- The app uses Android's native vertical StackView gestures. Launcher-specific swipe behaviour and card retention still need physical-device verification; the navigation buttons provide an alternative.
+- The app uses Android's native vertical StackView gestures. Launcher-specific swipe behaviour and card retention still need physical-device verification.
 
-For existing installations, resize the widget to at least 200dp tall or remove and add it again if the navigation row is clipped.
+For existing installations, resize the widget after updating. If your launcher retains the old minimum size, remove and add the widget again. The default minimum height is 170dp, with resizing allowed down to 200 × 150dp where the launcher supports it.
 
 ## Supported sessions
 
@@ -46,7 +47,7 @@ Only sessions with published dates and times are scheduled. Live displays depend
 
 Requires **Android 8.0 or later**. Internet access is needed for fresh schedules and live timing.
 
-1. Open the [verified v2.6 build](https://github.com/joejojy/f1-android-widget-/actions/runs/40276226289).
+1. Open the [verified v2.7 build](https://github.com/joejojy/f1-android-widget-/actions/runs/40276226289).
 2. Download the **F1-Next-Race-APK-Fixed** artifact and extract `app-debug.apk`. GitHub may require you to sign in to download artifacts.
 3. Install the APK on your phone, allowing installation from your browser or file manager if Android asks.
 4. Long-press your home screen, open **Widgets**, and add **F1 Next Race**.
@@ -74,7 +75,7 @@ The app then schedules an automatic connection for each session's published star
 - Force-stopping the app, shutting down the phone, revoking alarm access, or device background restrictions can prevent automatic starts. Android may also limit an active connection.
 - Circuit outlines are bundled assets and may need updating when a track layout changes.
 
-The v2.6 build passed **33 deterministic regression tests**, covering countdowns, widget rendering, session selection, timing updates, and automatic-start behavior. Free timing access was verified during the Singapore Grand Prix on **11 October 2026**. Practice, qualifying, and sprint behavior was tested with fixtures; live access for those sessions still needs confirmation when they run. Final launcher and background-service behavior also needs physical-device verification.
+The regression suite includes **34 deterministic tests**, covering countdowns, widget rendering, session selection, timing updates, and automatic-start behavior. Free timing access was verified during the Singapore Grand Prix on **11 October 2026**. Practice, qualifying, and sprint behavior was tested with fixtures; live access for those sessions still needs confirmation when they run. Final launcher and background-service behavior also needs physical-device verification.
 
 ## Build from source
 
@@ -82,7 +83,7 @@ The Android project is stored in [`F1NextRaceWidgetPro-Android-Source.zip`](F1Ne
 
 1. Open this repository's **Actions** tab.
 2. Select **Build F1 Next Race APK**, then **Run workflow**.
-3. Select `codex/widget-clock-footer` for the v2.6 source while pull request #1 is open.
+3. Select `codex/widget-clock-footer` for the v2.7 source while pull request #1 is open. Leave **preview_only** unchecked to build the APK.
 4. After the build succeeds, download **F1-Next-Race-APK-Fixed**.
 
 Running the workflow requires repository permission; you can also fork the repository and run it in your fork.
