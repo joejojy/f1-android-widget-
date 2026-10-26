@@ -46,7 +46,7 @@ Only sessions with published dates and times are scheduled. Live displays depend
 
 Requires **Android 8.0 or later**. Internet access is needed for fresh schedules and live timing.
 
-1. Open the [verified v2.6 build](https://github.com/joejojy/f1-android-widget-/actions/runs/38141153019).
+1. Open the [verified v2.6 build](https://github.com/joejojy/f1-android-widget-/actions/runs/40276226289).
 2. Download the **F1-Next-Race-APK-Fixed** artifact and extract `app-debug.apk`. GitHub may require you to sign in to download artifacts.
 3. Install the APK on your phone, allowing installation from your browser or file manager if Android asks.
 4. Long-press your home screen, open **Widgets**, and add **F1 Next Race**.
@@ -74,7 +74,7 @@ The app then schedules an automatic connection for each session's published star
 - Force-stopping the app, shutting down the phone, revoking alarm access, or device background restrictions can prevent automatic starts. Android may also limit an active connection.
 - Circuit outlines are bundled assets and may need updating when a track layout changes.
 
-The v2.6 build includes **33 deterministic regression tests**, covering countdowns, widget rendering, session selection, timing updates, and automatic-start behavior. Free timing access was verified during the Singapore Grand Prix on **11 October 2026**. Practice, qualifying, and sprint behavior was tested with fixtures; live access for those sessions still needs confirmation when they run. Final launcher and background-service behavior also needs physical-device verification.
+The v2.6 build passed **33 deterministic regression tests**, covering countdowns, widget rendering, session selection, timing updates, and automatic-start behavior. Free timing access was verified during the Singapore Grand Prix on **11 October 2026**. Practice, qualifying, and sprint behavior was tested with fixtures; live access for those sessions still needs confirmation when they run. Final launcher and background-service behavior also needs physical-device verification.
 
 ## Build from source
 
