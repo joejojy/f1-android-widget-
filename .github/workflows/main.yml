@@ -65,7 +65,8 @@ jobs:
                   android:text="" />'''
 
           fixed, count = re.subn(pattern, replacement, s, count=1)
-          if count != 1:
+          already_fixed = re.search(r'<TextView\s+android:layout_width="4dp"\s+android:layout_height="22dp"\s+android:background="@drawable/accent_bar"\s+android:text=""\s*/>', s)
+          if count != 1 and not already_fixed:
               raise SystemExit("Could not find the decorative View to patch.")
 
           p.write_text(fixed)
