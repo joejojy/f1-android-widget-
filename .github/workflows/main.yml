@@ -3,6 +3,11 @@ name: Build F1 Next Race APK
 
 on:
   workflow_dispatch:
+    inputs:
+      preview_only:
+        description: "Render draft UI and run tests without packaging an APK"
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -89,11 +94,26 @@ jobs:
           p.write_text(s)
           PY
 
+      - name: Render draft UI and run regression tests
+        if: ${{ inputs.preview_only }}
+        working-directory: project/F1NextRaceWidgetPro
+        run: gradle testDebugUnitTest --no-daemon
+
+      - name: Upload UI previews
+        if: ${{ inputs.preview_only }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: Results-UI-Draft
+          path: project/F1NextRaceWidgetPro/app/build/previews/*.png
+          if-no-files-found: error
+
       - name: Build debug APK
+        if: ${{ !inputs.preview_only }}
         working-directory: project/F1NextRaceWidgetPro
         run: gradle assembleDebug --no-daemon
 
       - name: Upload APK
+        if: ${{ !inputs.preview_only }}
         uses: actions/upload-artifact@v4
         with:
           name: F1-Next-Race-APK-Fixed
